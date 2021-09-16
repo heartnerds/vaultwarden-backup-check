@@ -1,0 +1,18 @@
+#!/bin/sh
+
+BACKUP_PATH="/path/to/your/backups"
+
+DATA="$( cd "$(dirname "${0}")" >/dev/null 2>&1 ; pwd -P )/data"
+mkdir -p ${DATA} && cd ${DATA} \
+    && cp ${BACKUP_PATH}/$(ls -l /home/mageas/Documents/VPS/Bitwarden/ | tail -n 1 | awk '{print $9}') backup.tar.xz.gpg \
+    && gpg -o backup.tar.xz -d backup.tar.xz.gpg \
+    && tar -xf backup.tar.xz && cd .. \
+    || exit 1
+
+docker-compose up
+
+docker-compose down
+
+rm -rf ${DATA}
+
+[ ! -d "${DATA}" ] && echo -e "\nEverithing is alright!\n" || echo -e "\033[0;31m\033[1m!! [ERROR] Please erase the ${DATA}/ directory !! \033[0m\n"

@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+
+    vaultwarden:
+        image: vaultwarden/server:latest
+        user: 1000:1000
+        volumes:
+            - ./data:/data
+        ports:
+            - 6666:80
