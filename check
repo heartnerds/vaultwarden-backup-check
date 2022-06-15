@@ -4,7 +4,7 @@ BACKUP_PATH="/path/to/your/backups"
 
 DATA="$( cd "$(dirname "${0}")" >/dev/null 2>&1 ; pwd -P )/data"
 mkdir -p ${DATA} && cd ${DATA} \
-    && cp ${BACKUP_PATH}/$(ls -l /home/mageas/Documents/VPS/Bitwarden/ | tail -n 1 | awk '{print $9}') backup.tar.xz.gpg \
+    && cp ${BACKUP_PATH}/$(ls -l ${BACKUP_PATH} | tail -n 1 | awk '{print $9}') backup.tar.xz.gpg \
     && gpg -o backup.tar.xz -d backup.tar.xz.gpg \
     && tar -xf backup.tar.xz && cd .. \
     || exit 1
