@@ -9,9 +9,9 @@ mkdir -p ${DATA} && cd ${DATA} \
     && tar -xf backup.tar.xz && cd .. \
     || exit 1
 
-docker-compose up
+docker compose up
 
-docker-compose down
+docker compose down
 
 rm -rf ${DATA}
 
